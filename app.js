@@ -17,31 +17,36 @@ app.use(logger("dev"));
 
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.get("/", function(request, response){
-    response.render("index");
+app.get("/", function(request,response){
+	response.render("index");
 });
 
-app.get("/new-entry", function(request, response){
-    response.render("new-entry");
+app.get("/new-entry", function(request,response){
+	response.render("new-entry");
 });
 
-app.post("/new-entry", function(request, response){
-    if(!request.body.tite || !request.body.body){
-        response.status(400).send("Entires must have some text!");
-        return;
-    }
-    entries.push({
-        title:request.body.tite,
-        content:request.body.body,
-        published:new Date()
-    });
-    response.redirect("/");
+app.post("/new-entry", function(request,response){
+	if(!request.body.title||!request.body.body){
+		response.status(400).send("Entries must have some text!");
+		return;
+	}
+	entries.push({
+		title:request.body.title,
+		body:request.body.body,
+		published:new Date()
+	});
+	response.redirect("/");
 });
 
 app.use(function(request, response){
-    response.status(404).render("404");
+	response.status(404).render("404");
 });
 
 http.createServer(app).listen(3000, function(){
-    console.log("Game library server started on port 3000");
-})
+	console.log("Game library server started on port 3000");
+});
+
+
+
+
+
